@@ -29,4 +29,5 @@ Anyway, the point of this script was to transode all the .mkv files I have to H2
 ## Obvious things to do
 1 - Use mediainfo to find non-English languages and use different handbrake profile
 2 - Get TV directory / non-standard directories working
-3 - Maybe ignore -pt1 / -pt2 files?
+3 - File specific transcoding
+4 - Maybe ignore -pt1 / -pt2 files?
