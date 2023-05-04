@@ -117,14 +117,15 @@ function transodeAssets {
   directory=$1
   for asset in "${transcodeList[@]}"
   do
+    details=$(getAssetComponents "$asset")
+    path=$(echo "$details" | cut -d, -f1)
+    sourceFile=$(echo "$details" | cut -d, -f2)
+    destinationFile=$(echo "$details" | cut -d, -f3)
     freeSpace=$(checkFreeSpace "$directory")
     freeSpacePercent=$(echo $freeSpace | rev | awk '{print $1}' | rev)
-    if [[ $freeSpacePercent -le 95 ]] && [[ $(grep -q $sourceFile $complete 2>/dev/null) != 0 ]]
+
+    if [[ ($freeSpacePercent -le 95) && ($(grep -q "$sourceFile" $complete 2>/dev/null) -ne 0) ]]
     then
-      details=$(getAssetComponents "$asset")
-      path=$(echo "$details" | cut -d, -f1)
-      sourceFile=$(echo "$details" | cut -d, -f2)
-      destinationFile=$(echo "$details" | cut -d, -f3)
       echo "$(date +"%Y-%m-%d %H:%M:%S") Starting transcode of $sourceFile" >> $log
       echo HandBrakeCLI -i "$path"/"$sourceFile" -o "$path"/"$destinationFile" --preset-import-file "Modified H264"
       if [[ $? == 0 ]]
