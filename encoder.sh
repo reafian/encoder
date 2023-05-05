@@ -86,12 +86,12 @@ fi
 # Find .mkv assets and put them into the assetList array
 function getAssets {
   directory="$1"
-  echo "$(date +"%Y-%m-%d %H:%M%:%S") Scanning $directory" >> $log
+  echo "$(date +"%Y-%m-%d %H:%M:%S") Scanning $directory" >> $log
   while IFS= read -r list
   do
     assetList+=("$list")
   done < <(find "$directory" -name "*.mkv" -and ! -name "*pt?.mkv")
-  echo "$(date +"%Y-%m-%d %H:%M%:%S") Finished scan - asset list created" >> $log
+  echo "$(date +"%Y-%m-%d %H:%M:%S") Finished scan - asset list created" >> $log
 }
 
 # Generate asset components from full file path
@@ -108,7 +108,7 @@ function getAssetComponents {
 # If we don't have an existing H264 file we're good to transcode so add the files
 # to the transcode array
 function checkAssets {
-  echo "$(date +"%Y-%m-%d %H:%M%:%S") Looking for previously completed assets" >> $log
+  echo "$(date +"%Y-%m-%d %H:%M:%S") Looking for previously completed assets" >> $log
   for asset in "${assetList[@]}"
   do
     details=$(getAssetComponents "$asset")
@@ -122,7 +122,7 @@ function checkAssets {
       transcodeList+=("$asset")
     fi
   done
-  echo "$(date +"%Y-%m-%d %H:%M%:%S") Finished scan - transcode list created" >> $log
+  echo "$(date +"%Y-%m-%d %H:%M:%S") Finished scan - transcode list created" >> $log
 }
 
 # There's no point transcoding if we don't have enough space
@@ -135,7 +135,7 @@ function checkFreeSpace {
 
 # Now we have a transcode list we can start working through it
 function transodeAssets {
-  echo "$(date +"%Y-%m-%d %H:%M%:%S") Processing transcode list" >> $log
+  echo "$(date +"%Y-%m-%d %H:%M:%S") Processing transcode list" >> $log
   directory=$1
   for asset in "${transcodeList[@]}"
   do
@@ -170,7 +170,7 @@ function transodeAssets {
       exit
     fi
   done
-  echo "$(date +"%Y-%m-%d %H:%M%:%S") Transcode list complete" >> $log
+  echo "$(date +"%Y-%m-%d %H:%M:%S") Transcode list complete" >> $log
 }
 
 # Iterate through the potential directories and process the assets
