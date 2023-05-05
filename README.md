@@ -26,8 +26,10 @@ I've mounted these on the pi using:
 
 Anyway, the point of this script was to transode all the .mkv files I have to H264 mp4 files. I'd already created everything as H265 (to save myself space) but not everythiing plays nicely with H265. I was after a way to transcode everything without tying up my Mac. I figured that, as I wasn't in any real hurry, I could use a spare pi and have that do the work for me. I rekon it's going to take around 2 days to do a single .mkv file so it'll take a while.
 
+On the fist pass on my Pi the transcode took about 27 hours for a two hour video. Very roughly, I'd say, it takes around 14 hours to transcode one our of video. That's pretty slow. It worked but it is slow. I suppose that if time isn't an issue that's ok.
+
 ## Obvious things to do
 1 - Use mediainfo to find non-English languages and use different handbrake profile
 2 - Get TV directory / non-standard directories working
 3 - File specific transcoding
-4 - Maybe ignore -pt1 / -pt2 files?
+4 - Maybe ignore -pt1 / -pt2 files? - Kind of done. I've excluded them in the find but there might be a better solution.
