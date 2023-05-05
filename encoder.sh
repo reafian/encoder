@@ -151,14 +151,18 @@ function transodeAssets {
     # If we have the free space and if the file doesn't exist in the complete file then we can transcode it
     if [[ $freeSpacePercent -le 95 ]] 
     then
-      echo "$(date +"%Y-%m-%d %H:%M:%S") Starting transcode of $sourceFile" >> $log
-      HandBrakeCLI -i "$path"/"$sourceFile" -o "$path"/"$destinationFile" --preset-import-file "Modified H264"
-      if [[ $? == 0 ]]
+      # paranoia check to see if the H264 file hasn't been created since the script started
+      if [[ ! -f "$path"/"$destinationFile" ]]
       then
-        echo "$sourceFile" >> $complete
-        echo "$(date +"%Y-%m-%d %H:%M:%S") Transcode of $sourceFile successful" >> $log
-      else
-        echo "$(date +"%Y-%m-%d %H:%M:%S") Transcode of $sourceFile failed" >> $log
+        echo "$(date +"%Y-%m-%d %H:%M:%S") Starting transcode of $sourceFile" >> $log
+        HandBrakeCLI -i "$path"/"$sourceFile" -o "$path"/"$destinationFile" --preset-import-file "Modified H264"
+        if [[ $? == 0 ]]
+        then
+          echo "$sourceFile" >> $complete
+          echo "$(date +"%Y-%m-%d %H:%M:%S") Transcode of $sourceFile successful" >> $log
+        else
+          echo "$(date +"%Y-%m-%d %H:%M:%S") Transcode of $sourceFile failed" >> $log
+        fi
       fi
     else
       echo "Not enough disk space left - exiting"
